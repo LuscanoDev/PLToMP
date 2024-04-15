@@ -11,7 +11,7 @@ logo = """ _____ __  _____     _____ _____
 print(f"""{logo}   v0.1 
       
 Feito por https://www.lexpdev.xyz
-Github 
+Github https://github.com/LuscanoDev/PLToMP
       
 --------------------------""")
 
