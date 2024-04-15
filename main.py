@@ -1,6 +1,5 @@
 from pytube import Playlist
 import os
-import urllib.request
 from unidecode import unidecode
 import re
 
@@ -12,6 +11,7 @@ logo = """ _____ __  _____     _____ _____
 print(f"""{logo}   v0.1 
       
 Feito por https://www.lexpdev.xyz
+Github 
       
 --------------------------""")
 
@@ -32,7 +32,6 @@ Informações da playlist:
 
 Link da playlist: {playlist_url}
 Nome da playlist: {playlist_title} 
-Dono da playlist: {playlist.owner}
 Views da playlist: {playlist.views}""")
     
     if fileformat == '1':
@@ -50,7 +49,7 @@ Views da playlist: {playlist.views}""")
                     videofilename = f"{counter} - {re.sub(r'[^\w\-_\. ]', '_', video.title)}.mp3"
                     video.streams.filter(only_audio=True).first().download(output_path=playlist_title, filename=unidecode(videofilename))
 
-                    f.write(f"""\n{video.title} baixada
+                    f.write(f"""\n{video.title} 
                             
 Informações da música
 
@@ -65,7 +64,8 @@ Link da thumbnail da música: {video.thumbnail_url}
                 if fileformat == "2":
                     videofilename = f"{counter} - {re.sub(r'[^\w\-_\. ]', '_', video.title)}.mp4"
                     video.streams.filter().first().download(output_path=playlist_title, filename=unidecode(videofilename))
-                    f.write(f"""\n{counter} - {video.title} baixada
+                    f.write(f"""\n{counter} - {video.title}
+                            
 Informações do vídeo
 
 Link do vídeo: {video.watch_url}
