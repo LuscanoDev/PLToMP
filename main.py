@@ -2,18 +2,31 @@ from pytube import Playlist
 import os
 from unidecode import unidecode
 import re
+from moviepy.editor import *
 
 logo = """ _____ __  _____     _____ _____ 
 |  _  |  ||_   _|___|     |  _  |
 |   __|  |__| | | . | | | |   __|
 |__|  |_____|_| |___|_|_|_|__|   """
 
-print(f"""{logo}   v0.1 
+print(f"""{logo}   v0.2
       
-Feito por https://www.lexpdev.xyz
-Github https://github.com/LuscanoDev/PLToMP
+Feito por https://www.lexpdev.xyz/
+Github https://github.com/LuscanoDev/PLToMP/
       
 --------------------------""")
+
+def convert_to_mp3(video_path):
+    try:
+        mp3_path = video_path.replace(".mp4", ".mp3")
+        clip = AudioFileClip(video_path)
+        clip.write_audiofile(mp3_path)
+        os.remove(video_path)
+        clip.close()
+        return mp3_path
+    except Exception as e:
+        print(f"Erro ao converter {video_path} para MP3: {e}")
+        return None
 
 def download_playlist(url, fileformat):
     playlist = Playlist(url)
@@ -46,9 +59,10 @@ Views da playlist: {playlist.views}""")
     for video in playlist.videos:
             try:
                 if fileformat == "1":
-                    videofilename = f"{counter} - {re.sub(r'[^\w\-_\. ]', '_', video.title)}.mp3"
-                    video.streams.filter(only_audio=True).first().download(output_path=playlist_title, filename=unidecode(videofilename))
-
+                    videofilename = str(counter) + " - " + re.sub(r'[^\w\-_\. ]', '_', video.title) + ".mp4"
+                    video.streams.get_lowest_resolution().download(output_path=playlist_title, filename=unidecode(videofilename))
+                    video_path = f"{playlist_title}/{videofilename}"
+                    convert_to_mp3(video_path)
                     f.write(f"""\n{video.title} 
                             
 Informações da música
@@ -62,8 +76,8 @@ Link da thumbnail da música: {video.thumbnail_url}
 ---------------------------------------------
     """)
                 if fileformat == "2":
-                    videofilename = f"{counter} - {re.sub(r'[^\w\-_\. ]', '_', video.title)}.mp4"
-                    video.streams.filter().first().download(output_path=playlist_title, filename=unidecode(videofilename))
+                    videofilename = str(counter) + " - " + re.sub(r'[^\w\-_\. ]', '_', video.title) + ".mp4"
+                    video.streams.get_highest_resolution().download(output_path=playlist_title, filename=unidecode(videofilename))
                     f.write(f"""\n{counter} - {video.title}
                             
 Informações do vídeo
