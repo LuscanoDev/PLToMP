@@ -13,7 +13,7 @@ Apenas vá na aba de Releases e baixe alguma delas :) *(um dia terá uma build p
 - Acesso ao pip *(no windows normalmente você instala selecionando a opção Add to PATH na instalação)*
 - Windows 7 ou superior
 ## Preparação
-Baixe o repositório em zip e extraia, e após isso, instale as blibiotecas necessárias digitando o comando ```pip install pytube unidecode re os auto-py-to-exe``` no CMD. (caso você tenha um metodo melhor para compilar, por favor, me avise!!).
+Baixe o repositório em zip e extraia, e após isso, instale as blibiotecas necessárias digitando o comando ```pip install pytube unidecode re os auto-py-to-exe moviepy``` no CMD. (caso você tenha um metodo melhor para compilar, por favor, me avise!!).
 
 Após isso, digite o comando ```auto-py-to-exe``` no CMD ou na sua IDE favorita que irá abrir uma tela mais ou menos assim:
 
